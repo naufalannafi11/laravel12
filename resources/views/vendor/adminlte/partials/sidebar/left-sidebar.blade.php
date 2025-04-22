@@ -24,31 +24,31 @@
                 {{-- kondisi sidebar --}}
                 @if(request()->is('dokter*'))
                     <li class="nav-item">
-                        <a href="#" class="nav-link active">
+                    <a href="/dokter/periksa" class="nav-link {{ request()->is('dokter/periksa') ? 'active' : '' }}">
                             <i class="far fa-circle nav-icon"></i>
-                            <p>Active Page</p>
+                            <p>Periksa</p>
                         </a>
                     </li>
                     
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                    <a href="/dokter/obat" class="nav-link {{ request()->is('dokter/obat') ? 'active' : '' }}">
                             <i class="far fa-circle nav-icon"></i>
-                            <p>Inctive Page</p>
+                            <p>Obat</p>
                         </a>
                     </li>
-                    @else
-                    <li class="nav-item">
-                        <a href="#" class="nav-link active">
-                            <i class="far fa-circle nav-icon"></i>
-                            <p>Active Page</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="far fa-circle nav-icon"></i>
-                            <p>Inctive Page</p>
-                        </a>
-                    </li>
+                        @else
+                        <li class="nav-item">
+                            <a href="#" class="nav-link active">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Active Page</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Inctive Page</p>
+                            </a>
+                        </li>
                 @endif
             </ul>
         </nav>

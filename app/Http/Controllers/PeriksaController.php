@@ -11,7 +11,8 @@ class PeriksaController extends Controller
      */
     public function index()
     {
-        //
+        return view('dokter/periksa.index');
+
     }
 
     /**
