@@ -13,7 +13,7 @@ class ObatController extends Controller
     public function index()
 {
     $obats = Obat::all();
-    return view('dokter/obat.index', compact('obats')); // sesuaikan
+    return view('dokter.obat.index', compact('obats')); // sesuaikan
 }
 
     /**
@@ -21,7 +21,7 @@ class ObatController extends Controller
      */
     public function create()
     {
-        return view('dokter/obat.create');
+        return view('dokter.obat.create');
     }
 
     /**
@@ -35,7 +35,7 @@ class ObatController extends Controller
             'harga' => 'required',
         ]);
         Obat::create($request->all());
-        return redirect()->route('obat.index');
+        return redirect()->route('dokter.obat.index');
 
     }
 
@@ -52,7 +52,7 @@ class ObatController extends Controller
      */
     public function edit(Obat $obat)
     {
-        return view('dokter/obat.edit', compact('obat'));
+        return view('dokter.obat.edit', compact('obat'));
 
     }
 
@@ -67,7 +67,7 @@ class ObatController extends Controller
             'harga' => 'required'
         ]);
         $obat->update($request->all());
-        return redirect()->route('obat.index');
+        return redirect()->route('dokter.obat.index');
 
     }
 
@@ -77,7 +77,7 @@ class ObatController extends Controller
     public function destroy(Obat $obat)
     {
         $obat->delete();
-        return redirect()->route('obat.index');
+        return redirect()->route('dokter.obat.index');
 
     }
 }

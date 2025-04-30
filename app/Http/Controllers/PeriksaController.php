@@ -3,63 +3,74 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Periksa;
+use App\Models\User;
 
 class PeriksaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        return view('dokter/periksa.index');
-
+        $periksas = Periksa::with(['pasien', 'dokter'])->get();
+        return view('dokter.periksa.index', compact('periksas'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        $pasiens = User::where('role', 'pasien')->get();
+        return view('dokter.periksa.create', compact('pasiens'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'id_pasien' => 'required|exists:users,id',
+            'tgl_periksa' => 'required|date',
+            'catatan' => 'nullable|string',
+            'biaya_periksa' => 'nullable|integer',
+        ]);
+
+        Periksa::create([
+            'id_pasien' => $request->id_pasien,
+            'id_dokter' => auth()->id(),
+            'tgl_periksa' => $request->tgl_periksa,
+            'catatan' => $request->catatan,
+            'biaya_periksa' => $request->biaya_periksa,
+        ]);
+
+        return redirect()->route('dokter.periksa.index')->with('success', 'Periksa berhasil ditambahkan.');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function edit($id)
     {
-        //
+        $periksa = Periksa::findOrFail($id);
+        $pasiens = User::where('role', 'pasien')->get();
+        return view('dokter.periksa.edit', compact('periksa', 'pasiens'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'id_pasien' => 'required|exists:users,id',
+            'tgl_periksa' => 'required|date',
+            'catatan' => 'nullable|string',
+            'biaya_periksa' => 'nullable|integer',
+        ]);
+
+        $periksa = Periksa::findOrFail($id);
+        $periksa->update([
+            'id_pasien' => $request->id_pasien,
+            'id_dokter' => auth()->id(),
+            'tgl_periksa' => $request->tgl_periksa,
+            'catatan' => $request->catatan,
+            'biaya_periksa' => $request->biaya_periksa,
+        ]);
+
+        return redirect()->route('dokter.periksa.edit', $id)->with('success', 'Data berhasil diperbarui.');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function destroy($id)
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        Periksa::destroy($id);
+        return redirect()->route('dokter.periksa.index')->with('success', 'Data berhasil dihapus.');
     }
 }

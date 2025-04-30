@@ -19,16 +19,23 @@
                     data-accordion="false"
                 @endif>
                 {{-- Configured sidebar links --}}
-                @each('adminlte::partials.sidebar.menu-item', $adminlte->menu('sidebar'), 'item')
+               
 
                 {{-- kondisi sidebar --}}
                 @if(request()->is('dokter*'))
-                    <li class="nav-item">
+                <li class="nav-item">
+                    <a href="/dokter/dashboard" class="nav-link {{ request()->is('dokter/dashboard') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                        <p>Dashboard</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
                     <a href="/dokter/periksa" class="nav-link {{ request()->is('dokter/periksa') ? 'active' : '' }}">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Periksa</p>
                         </a>
-                    </li>
+                </li>
                     
                     <li class="nav-item">
                     <a href="/dokter/obat" class="nav-link {{ request()->is('dokter/obat') ? 'active' : '' }}">
@@ -38,15 +45,15 @@
                     </li>
                         @else
                         <li class="nav-item">
-                            <a href="#" class="nav-link active">
+                        <a href="{{ route('home') }}" class="nav-link {{ request()->is('home') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Active Page</p>
+                                <p>Dashboard</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="{{ route('periksa') }}" class="nav-link {{ request()->is('periksa') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Inctive Page</p>
+                                <p>Periksa</p>
                             </a>
                         </li>
                 @endif

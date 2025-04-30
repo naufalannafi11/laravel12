@@ -4,13 +4,13 @@
 @section('title', 'Edit Obat')
 @section('content_header')
     <div class="card-header">
-        <a href="{{ route('obat.create')}}" class="btn btn-primary">Tambah Obat</a>
+        <a href="{{ route('dokter.obat.create')}}" class="btn btn-primary">Tambah Obat</a>
     </div>
 @endsection
 @section('content')
     <div class="card">
         <div class="card-body">
-            <form action="{{ route('obat.update', $obat->id) }}" method="POST">
+            <form action="{{ route('dokter.obat.update', $obat->id) }}" method="POST">
                 @csrf
                 @method('PUT')
                 <div class="form-group">
@@ -34,7 +34,7 @@
                 </div>
                 <div class="wrapper d-flex justify-content-end" style="gap: 10px;">
                     <button type="submit" class="btn btn-success">Ubah</button>
-                    <a href="{{ route('obat.index') }}" class="btn btn-secondary">Kembali</a>
+                    <a href="{{ route('dokter.obat.index') }}" class="btn btn-secondary">Kembali</a>
                 </div>
             </form>
         </div>

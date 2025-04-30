@@ -28,6 +28,6 @@ class HomeController extends Controller
 
     public function dokter()
     {
-        return view('dokter.index');
+        return view('dokter.dashboard');
     }
 }
